@@ -1,14 +1,23 @@
 name: Deploy Frontend
+
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker build -t docker-test -f Dockerfile.dev .
-      - run: docker run -e CI=true DOCKER npm test
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Log in to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        
+      - name: Build Docker image
+        run: docker build -t my-docker-image -f Dockerfile.dev .
+        
+      - name: Run tests
+        run: docker run -e CI=true my-docker-image npm test
