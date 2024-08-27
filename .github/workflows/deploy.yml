@@ -29,7 +29,7 @@ jobs:
         AWS_REGION: 'us-east-1'
         APPLICATION_NAME: 'docker'
         ENVIRONMENT_NAME: 'docker-env'
-        S3_BUCKET: 'elasticbeanstalk-us-east-1-923445599289'
+        S3_BUCKET: 'elasticbeanstalk-us-east-123456789012'
       run: |
         zip -r app.zip . 
         aws elasticbeanstalk create-application-version --application-name $APPLICATION_NAME --version-label $GITHUB_SHA --source-bundle S3Bucket=$S3_BUCKET,S3Key=app.zip
